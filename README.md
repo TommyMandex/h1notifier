@@ -14,18 +14,13 @@ h1notifier is a simple tool to fetch disclosed reports from hackerone. h1notifie
 
 ## Installation and Configuration
 
-```
-git clone https://github.com/bscript/h1notifier.git
-```
 
-```
-cd h1notifier
+`git clone https://github.com/bscript/h1notifier.git`
 
-```
 
-```
-sudo pip3 install -r requirements.txt
-``
+`cd h1notifier`
+
+`sudo pip3 install -r requirements.txt`
 
 ## TODO
 
