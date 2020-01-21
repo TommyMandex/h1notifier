@@ -5,21 +5,24 @@ from termcolor import colored
 from config import * 
 import re
 from prettytable import PrettyTable
+from tqdm import tqdm
+import time
 
 version = "1.0"
 def banner():
     print('''
-         _     __              _   _  __ _           
-        | |   /  |            | | (_)/ _(_)          
-        | |__ `| | _ __   ___ | |_ _| |_ _  ___ _ __ 
-        | '_ \ | || '_ \ / _ \| __| |  _| |/ _ \ '__|
-        | | | || || | | | (_) | |_| | | | |  __/ |   
-        |_| |_\___/_| |_|\___/ \__|_|_| |_|\___|_|   
-                                                    
+                 _     __              _   _  __ _           
+                | |   /  |            | | (_)/ _(_)          
+                | |__ `| | _ __   ___ | |_ _| |_ _  ___ _ __ 
+                | '_ \ | || '_ \ / _ \| __| |  _| |/ _ \ '__|
+                | | | || || | | | (_) | |_| | | | |  __/ |   
+                |_| |_\___/_| |_|\___/ \__|_|_| |_|\___|_|   
+                                                            
                                              
     ''')
-    print(colored("             Author: Bour Mohamed Abdelhadi (@BourAbdelhadi)", "red" , attrs=['bold']))
-    print(colored("                           Version: {}", "red" , attrs=['bold']).format(version))
+    print(colored("               Author: Bour Mohamed Abdelhadi (@BourAbdelhadi)", "red" , attrs=['bold']))
+    print(colored("                             Version: {}", "red" , attrs=['bold']).format(version) + "\n")
+
 
 def getreports():
     response = requests.post(h1_url, headers=h1_header, cookies=h1_cookie, json=h1_json)
@@ -33,8 +36,9 @@ def getreports():
                     colored("Report Substate" , "green" , attrs=['bold']), 
                     colored("Severity" , "green" , attrs=['bold']), 
                     colored("Reward" , "green" , attrs=['bold'])])
-
-    for i in edges:
+    hacktivity = {}
+    for i in tqdm(edges):
+        time.sleep(0.10)
         # Reporter infos
         report_type = i['node']['type'] # Disclosed or Undisclosed
         reporter = i['node']['reporter']['username'] # Reporter Username
@@ -74,6 +78,7 @@ def getreports():
                     severity_rating = colored(severity_rating , "yellow" , attrs=['bold'])
                 if 'critical' == severity_rating:
                     severity_rating = colored(severity_rating , "red" , attrs=['bold'])
+            hacktivity.append()
             t.add_row([report_title, reporter , team_name, report_url, report_type, report_substate, severity_rating, total_awarded_amount])
     print(t)
 
