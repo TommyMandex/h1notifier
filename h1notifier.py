@@ -36,7 +36,6 @@ def getreports():
                     colored("Report Substate" , "green" , attrs=['bold']), 
                     colored("Severity" , "green" , attrs=['bold']), 
                     colored("Reward" , "green" , attrs=['bold'])])
-    hacktivity = {}
     for i in tqdm(edges):
         time.sleep(0.10)
         # Reporter infos
@@ -78,7 +77,6 @@ def getreports():
                     severity_rating = colored(severity_rating , "yellow" , attrs=['bold'])
                 if 'critical' == severity_rating:
                     severity_rating = colored(severity_rating , "red" , attrs=['bold'])
-            hacktivity.append()
             t.add_row([report_title, reporter , team_name, report_url, report_type, report_substate, severity_rating, total_awarded_amount])
     print(t)
 
