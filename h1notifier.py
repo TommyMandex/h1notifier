@@ -23,6 +23,12 @@ def banner():
     print(colored("               Author: Bour Mohamed Abdelhadi (@BourAbdelhadi)", "red" , attrs=['bold']))
     print(colored("                             Version: {}", "red" , attrs=['bold']).format(version) + "\n")
 
+def populate_in_list(param):
+    param = []
+    for i in range(len(param)):
+        param.append(param[i])
+    return param
+
 
 def getreports():
     response = requests.post(h1_url, headers=h1_header, cookies=h1_cookie, json=h1_json)
@@ -36,6 +42,8 @@ def getreports():
                     colored("Report Substate" , "green" , attrs=['bold']), 
                     colored("Severity" , "green" , attrs=['bold']), 
                     colored("Reward" , "green" , attrs=['bold'])])
+    # hacktivity = {}
+    list_hacktivity = []
     for i in tqdm(edges):
         time.sleep(0.10)
         # Reporter infos
@@ -79,7 +87,7 @@ def getreports():
                     severity_rating = colored(severity_rating , "red" , attrs=['bold'])
             t.add_row([report_title, reporter , team_name, report_url, report_type, report_substate, severity_rating, total_awarded_amount])
     print(t)
-
+           
 if __name__ == "__main__":
     banner()
     getreports()
