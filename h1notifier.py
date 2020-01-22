@@ -13,14 +13,15 @@ import time
 version = "1.0"
 def banner():
     print('''
-                 _     __              _   _  __ _           
-                | |   /  |            | | (_)/ _(_)          
-                | |__ `| | _ __   ___ | |_ _| |_ _  ___ _ __ 
-                | '_ \ | || '_ \ / _ \| __| |  _| |/ _ \ '__|
-                | | | || || | | | (_) | |_| | | | |  __/ |   
-                |_| |_\___/_| |_|\___/ \__|_|_| |_|\___|_|   
-                                                            
-                                             
+
+        ██╗  ██╗ ██╗███╗   ██╗ ██████╗ ████████╗██╗███████╗██╗███████╗██████╗ 
+        ██║  ██║███║████╗  ██║██╔═══██╗╚══██╔══╝██║██╔════╝██║██╔════╝██╔══██╗
+        ███████║╚██║██╔██╗ ██║██║   ██║   ██║   ██║█████╗  ██║█████╗  ██████╔╝
+        ██╔══██║ ██║██║╚██╗██║██║   ██║   ██║   ██║██╔══╝  ██║██╔══╝  ██╔══██╗
+        ██║  ██║ ██║██║ ╚████║╚██████╔╝   ██║   ██║██║     ██║███████╗██║  ██║
+        ╚═╝  ╚═╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝    ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝╚═╝  ╚═╝
+                                                                                                
+                                            
     ''')
     print(colored("               Author: Bour Mohamed Abdelhadi (@BourAbdelhadi)", "red" , attrs=['bold']))
     print(colored("                             Version: {}", "red" , attrs=['bold']).format(version) + "\n")
@@ -33,7 +34,7 @@ def getreports():
         'Disclosed': {"report":{"disclosed_at":{"_is_null":False}}}
     }
     h1_json = {"operationName": "HacktivityPageQuery","variables":{"querystring":"","where":type_report_filters['Bug Bounty'],"orderBy":{"field":"popular","direction":"DESC"},"secureOrderBy":None,"count":20,"maxShownVoters":10},"query":"query HacktivityPageQuery($querystring: String, $orderBy: HacktivityItemOrderInput, $secureOrderBy: FiltersHacktivityItemFilterOrder, $where: FiltersHacktivityItemFilterInput, $count: Int, $cursor: String, $maxShownVoters: Int) { me {    id   __typename } hacktivity_items(first: $count, after: $cursor, query: $querystring, order_by: $orderBy, secure_order_by: $secureOrderBy, where: $where) {   total_count   ...HacktivityList   __typename }}fragment HacktivityList on HacktivityItemConnection { total_count pageInfo {   endCursor   hasNextPage   __typename } edges {   node {     ... on HacktivityItemInterface {       id       databaseId: _id       ...HacktivityItem       __typename     }     __typename   }   __typename } __typename}fragment HacktivityItem on HacktivityItemUnion { type: __typename ... on HacktivityItemInterface {   id   votes {     total_count     __typename   }   voters: votes(last: $maxShownVoters) {     edges {       node {         id         user {           id           username           __typename         }         __typename       }       __typename     }     __typename   }   upvoted: upvoted_by_current_user   __typename } ... on Undisclosed {   id   ...HacktivityItemUndisclosed   __typename } ... on Disclosed {   id   ...HacktivityItemDisclosed   __typename } ... on HackerPublished {   id   ...HacktivityItemHackerPublished   __typename }}fragment HacktivityItemUndisclosed on Undisclosed { id reporter {   id   username   ...UserLinkWithMiniProfile   __typename } team {   handle   name   medium_profile_picture: profile_picture(size: medium)   url   id   ...TeamLinkWithMiniProfile   __typename } latest_disclosable_action latest_disclosable_activity_at requires_view_privilege total_awarded_amount currency __typename}fragment TeamLinkWithMiniProfile on Team { id handle name __typename}fragment UserLinkWithMiniProfile on User { id username __typename}fragment HacktivityItemDisclosed on Disclosed { id reporter {   id   username   ...UserLinkWithMiniProfile   __typename } team {   handle   name   medium_profile_picture: profile_picture(size: medium)   url   id   ...TeamLinkWithMiniProfile   __typename } report {   id   title   substate   url   __typename } latest_disclosable_action latest_disclosable_activity_at total_awarded_amount severity_rating currency __typename}fragment HacktivityItemHackerPublished on HackerPublished { id reporter {   id   username   ...UserLinkWithMiniProfile   __typename } team {   id   handle   name   medium_profile_picture: profile_picture(size: medium)   url   ...TeamLinkWithMiniProfile   __typename } report {   id   url   title   substate   __typename } latest_disclosable_activity_at severity_rating __typename}" }
-    print(h1_json)
+    # print(h1_json)
     response = requests.post(h1_url, headers=h1_header, cookies=h1_cookie, json=h1_json)
     data = response.json()
     edges = data['data']['hacktivity_items']['edges']
