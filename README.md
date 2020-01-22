@@ -15,7 +15,7 @@
 h1notifier is a simple tool to fetch disclosed reports from hackerone. h1notifier should run periodically at fixed times. all the new reports will be sent to slack workspace with notification push.
 
 
-![Screenshot at 2020-01-22 00-01-49](https://user-images.githubusercontent.com/43368124/72847056-726bdd80-3caa-11ea-91bf-f65299e3de0e.png)
+[![asciicast](https://asciinema.org/a/8EDiZ92DTcVbOhBGr2q4rVjqr.svg)](https://asciinema.org/a/8EDiZ92DTcVbOhBGr2q4rVjqr)
 
 ## Why ?
 
